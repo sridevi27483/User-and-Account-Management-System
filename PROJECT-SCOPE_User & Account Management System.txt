@@ -1,0 +1,65 @@
+Project: Simple User & Account Management System
+Purpose: REST API for managing users, banks, accounts with roles & basic operations.
+
+Entities:
+- User
+  - Id (GUID)
+  - FirstName
+  - LastName
+  - Email (unique)
+  - PasswordHash
+  - IsBankUser (bool)
+  - Roles (collection)
+  - CreatedAt, UpdatedAt
+
+- Role
+  - Id
+  - Name (e.g., Admin, Teller, Customer)
+  - Description
+
+- Bank
+  - Id
+  - Name
+  - SwiftCode
+  - CreatedAt
+
+- Branch
+  - Id
+  - BankId (FK)
+  - Name
+  - Address
+
+- Account
+  - Id (GUID)
+  - AccountNumber (string)
+  - UserId (FK)
+  - BankId (FK)
+  - BranchId (FK)
+  - AccountType (enum: Saving, Current, TermDeposit)
+  - Currency (string)
+  - Balance (decimal)
+  - IsMinorOperated (bool)
+  - POA (PowerOfAttorney info, optional)
+  - CreatedAt, UpdatedAt
+
+- Transaction (optional seed)
+  - Id
+  - AccountId
+  - Type (Deposit/Withdraw)
+  - Amount
+  - Timestamp
+  - Note
+
+Features / Endpoints:
+- /api/users  -> CRUD, login
+- /api/accounts -> CRUD, deposit, withdraw, balance
+- /api/banks -> CRUD
+- Auth: JWT token (login), Roles-based authorization
+- EF Core migrations + seed sample data
+- Swagger UI
+- Unit tests (basic)
+
+Non-functional:
+- Clean code & folder structure
+- README with setup steps
+- Presentation slides (optional)
