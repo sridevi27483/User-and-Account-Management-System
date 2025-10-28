@@ -10,4 +10,21 @@ There are two types of users — Normal users and Bank users.
 Each user will have specific roles and permissions to control what they can do.
 
 The system will have REST APIs for users, accounts, and banks — for example, /user, /accounts, and /banks.
+
 The main goal is to create the database, define entities, and perform CRUD operations using these APIs.
+
+POST /api/auth/register — register user
+
+POST /api/auth/login — returns JWT
+
+GET /api/customers — list customers (auth)
+
+POST /api/customers — create customer (role-based)
+
+PUT /api/customers/{id} — update (role-based)
+
+DELETE /api/customers/{id} or POST /api/customers/{id}/deactivate — deactivate/reactivate
+
+GET /api/accounts, POST /api/accounts, PUT /api/accounts/{id}, etc.
+
+JWT expiry, validation rules, password hashing expectations, role & permission model (Admin, Manager, Teller, Customer).
