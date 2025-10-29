@@ -1,0 +1,19 @@
+A user can have accounts in more than one bank.
+
+Each bank can have multiple branches.
+
+Accounts can be of type Saving, Current, or Term Deposit.
+
+Only Bank users can create or close accounts.
+
+Normal users can deposit, withdraw, and check balance (with limits).
+
+Each account belongs to one bank and one user.
+
+Accounts can be operated by minors or Power of Attorney (POA) holders.
+
+The system supports multiple currencies (for NRI users).
+
+Each user has specific roles and permissions.
+
+The APIs will use basic CRUD operations (Create, Read, Update, Delete).
