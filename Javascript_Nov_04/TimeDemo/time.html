@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Time Button</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      font-size: 36px;
+      color: white;
+      background-color: #ae3232;
+      border: none;
+      border-radius: 12px;
+      padding: 20px 40px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+
+  </style>
+</head>
+<body>
+
+  <button id="timeButton">00:00:00</button>
+
+  <script>
+    function showTime() {
+      const now = new Date();
+      let hours = String(now.getHours()).padStart(2, '0');
+      let minutes = String(now.getMinutes()).padStart(2, '0');
+      let seconds = String(now.getSeconds()).padStart(2, '0');
+      
+      document.getElementById("timeButton").textContent = `${hours}:${minutes}:${seconds}`;
+
+      // call itself again after 1 second
+      setTimeout(showTime, 1000);
+    }
+
+    // start once
+    showTime();
+  </script>
+
+</body>
+</html>
