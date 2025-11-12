@@ -44,27 +44,23 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// Swagger + JWT configuration
+// --- existing code up to Swagger config ---
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "BankApi", Version = "v1" });
-
-    // Add the JWT bearer definition
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header using the Bearer scheme. Enter: \"Bearer {token}\" (without quotes).\n\nExample: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+        Description = "JWT Authorization header using the Bearer scheme. Enter: \"Bearer {token}\" (without quotes).",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer",
         BearerFormat = "JWT"
     });
-
-    // Require the Bearer token for all endpoints (can be overridden per-operation in Swagger if needed)
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -80,24 +76,30 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 
-// Serve swagger in Development and Production if you want (dev is typical)
+// swagger setup
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        // optional: customize the swagger UI route or title
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "BankApi v1");
     });
 }
-else
-{
-    // If you want swagger available in non-dev, uncomment these lines:
-    // app.UseSwagger();
-    // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BankApi v1"));
-}
+
+// enable CORS middleware
+app.UseCors();
 
 app.UseHttpsRedirection();
 
